@@ -22,6 +22,7 @@
     <link href="cg_styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="cg_forms.css" />
     <link rel="stylesheet" href="cg_forms.css" />
+    <link rel="stylesheet" href="cg_validate.css">
     <script src="cg_script.js"></script>
 </head>
 
@@ -55,17 +56,62 @@
         <h1>Conference Registration Form</h1>
         <p>Required Item (*)</p>
 
-        <form action="http://www.example.com/cg/register">
+        <form action="http://www.example.com/cg/register" method="POST">
 
-            <input type="text" id="title">
+            <!-- The Title text box was given a datalist to allow the user to be able to identify their title, Mr., Mrs., etc.. The input is given a list attribute of titleList, and the datalist is given an id of titleList. -->
+            <label for="titleBox">Title</label>
+            <input name="title" type="text" id="titleBox" list="titleList">
+            <datalist id="titleList">
+                <option value="Mr."></option>
+                <option value="Mrs."></option>
+                <option value="Ms."></option>
+                <option value="Prof."></option>
+                <option value="Dr."></option>
+                <option value="Assist. Prof."></option>
+                <option value="Assoc. Prof."></option>
+            </datalist>
 
-            <input type="text" id="firstName">
 
-            <input type="text" id="lastName">
+            <!-- The inputs are given a certain Control ID which then the label must follow for the 'for' attribute. The address is a little different because it is given a textarea element which allows the user to type out as much as they want to for that specified requirement. The First Name, Last Name, Address, Company or University, E-mail, and Phone Number are all required which must be filled out before you can continue with the form -->
+            <label for="fnBox">First Name*</label>
+            <input name="firstName" type="text" id="fnBox" required>
 
-            <input type="text" id="address">
+            <label for="lnBox">Last Name*</label>
+            <input name="lastName" type="text" id="lnBox" required>
 
-            <input type="text" id="comp">
+            <label for="addBox">Address*</label>
+            <textarea name="address" id="addBox" cols="30" rows="10" required></textarea>
+
+            <label for="groupBox">Company or University</label>
+            <input name="group" type="text" id="groupBox">
+
+            <label for="mailBox">E-mail*</label>
+            <input name="email" type="email" id="mailBox" required>
+
+
+            <!-- Both the phoneBox & idBox have a certain pattern that the user must follow in order for it to be valid. Both of the inputs are also given placeholder text to tell the user the way it should be formatted. -->
+
+            <label for="phoneBox">Phone Number*</label>
+            <input name="phoneNumber" type="tel" id="phoneBox" placeholder="(nnn) nnn-nnnn" pattern="^\d{10}$|^(\(\d{3}\)\s*)?\d{3}[\s-]?\d{4}$"
+                required />
+
+            <label for="idBox">ACGIP Membership Number</label>
+            <input name="acgipID" type="text" id="idBox" placeholder="acgip nnnnnn" pattern="^acgip\-\d{6}$" />
+
+
+            <!-- While the user is choosing a Registration Category, they will be prompted with a list of options to choose from. The select from. The id for the select element is the same as the 'for' attribute inside of the label. At the end of the form is an input with the element attribute type set to 'submit' and a value of 'Continue' which is displayed as the text. -->
+            <label for="regList">Registration Category</label>
+            <select name="registerType" id="regList">
+                <option value="memeber">ACGIP Member ($695)</option>
+                <option value="Non-Member">Non-Member ($795)</option>
+                <option value="Student">Student ($310)</option>
+                <option value="Poster">Poster ($95)</option>
+                <option value="Guest">Guest ($35)</option>
+            </select>
+
+            <p>
+                <input type="submit" value="Continue">
+            </p>
 
         </form>
 
